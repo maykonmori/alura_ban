@@ -1,8 +1,9 @@
 package main
 
 import (
-	"banco/contas"
 	"fmt"
+
+	"github.com/maykonmori1993/alura_ban/contas"
 )
 
 func main() {
