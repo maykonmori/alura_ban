@@ -2,13 +2,13 @@ package contas
 
 import "github.com/maykonmori1993/alura_ban/clientes"
 
-type ContaCorrente struct {
-	Titular                    clientes.Titular
-	NumeroAgencia, NumeroConta int
-	saldo                      float64
+type ContaPoupanca struct {
+	Titular                              clientes.Titular
+	NumeroAgencia, NumeroConta, Operacao int
+	saldo                                float64
 }
 
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
+func (c *ContaPoupanca) Sacar(valorDoSaque float64) string {
 	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
 
 	if podeSacar {
@@ -19,7 +19,7 @@ func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
 	}
 }
 
-func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
+func (c *ContaPoupanca) Depositar(valorDoDeposito float64) (string, float64) {
 	if valorDoDeposito > 0 {
 		c.saldo += valorDoDeposito
 		return "Deposito realizado com sucesso", c.saldo
@@ -28,7 +28,7 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
 	}
 }
 
-func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
+func (c *ContaPoupanca) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
 	if valorDaTransferencia < c.saldo && valorDaTransferencia > 0 {
 		c.saldo -= valorDaTransferencia
 		contaDestino.Depositar(valorDaTransferencia)
@@ -38,6 +38,6 @@ func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *C
 	}
 }
 
-func (c *ContaCorrente) ObterSaldo() float64 {
+func (c *ContaPoupanca) ObterSaldo() float64 {
 	return c.saldo
 }
